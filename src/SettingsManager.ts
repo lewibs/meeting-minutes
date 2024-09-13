@@ -1,13 +1,21 @@
 import { Plugin } from "obsidian";
 
 export interface WhisperSettings {
+	//TODO maybe keep this if they can use any api
 	apiKey: string;
+	//TODO modify to allow the user to use any api?
 	apiUrl: string;
+	//TODO remove model
 	model: string;
+	//TODO remove prompt
 	prompt: string;
+	//TODO remove language
 	language: string;
+
 	saveAudioFile: boolean;
 	saveAudioFilePath: string;
+	
+	//TODO remove debug mode
 	debugMode: boolean;
 	createNewFileAfterRecording: boolean;
 	createNewFileAfterRecordingPath: string;
