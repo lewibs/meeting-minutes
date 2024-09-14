@@ -30,6 +30,11 @@ const buttonBase = `
 	margin: 5px;
 `
 
+const disabled = `
+	${buttonBase}
+	background-color: gray;
+`
+
 const start = `
 	${buttonBase}
 	background-color: green;
@@ -92,6 +97,11 @@ export class Controls extends Modal {
 			.onClick(this.stopRecording.bind(this))
 			.buttonEl.setAttr("style", stop);
 		this.stopButton.setIcon("square"); // Ensure icon is set after styling
+
+		this.pauseButton.setDisabled(true);
+		this.pauseButton.buttonEl.setAttr("style", disabled)
+		this.stopButton.setDisabled(true)
+		this.stopButton.buttonEl.setAttr("style", disabled)
 	}
 
 	async startRecording() {
@@ -132,9 +142,25 @@ export class Controls extends Modal {
 	resetGUI() {
 		const recorderState = this.plugin.recorder.getRecordingState();
 
-		this.startButton.setDisabled(recorderState === "recording" || recorderState === "paused");
-		this.pauseButton.setDisabled(recorderState === "inactive");
-		this.stopButton.setDisabled(recorderState === "inactive");
+		if (recorderState === "recording" || recorderState === "paused") {
+			this.startButton.setDisabled(true);
+			this.startButton.buttonEl.setAttr("style", disabled)
+		} else {
+			this.startButton.setDisabled(false);
+			this.startButton.buttonEl.setAttr("style", start)
+		}
+
+		if (recorderState === "inactive") {
+			this.pauseButton.setDisabled(true);
+			this.pauseButton.buttonEl.setAttr("style", disabled)
+			this.stopButton.setDisabled(true)
+			this.stopButton.buttonEl.setAttr("style", disabled)
+		} else {
+			this.pauseButton.setDisabled(false);
+			this.pauseButton.buttonEl.setAttr("style", pause)
+			this.stopButton.setDisabled(false)
+			this.stopButton.buttonEl.setAttr("style", stop)
+		}
 
 		if (recorderState === "paused") {
 			this.pauseButton.setButtonText("Resume")
@@ -142,6 +168,13 @@ export class Controls extends Modal {
 		} else {
 			this.pauseButton.setButtonText("Pause")
 			this.pauseButton.setIcon("pause")
+		}
+
+		if (!recorderState) {
+			this.pauseButton.setDisabled(true);
+			this.pauseButton.buttonEl.setAttr("style", disabled)
+			this.stopButton.setDisabled(true)
+			this.stopButton.buttonEl.setAttr("style", disabled)
 		}
 	}
 }
