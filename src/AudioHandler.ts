@@ -73,9 +73,7 @@ export class AudioHandler {
 				audio_text
 			);
 			
-			//TODO give this a quick toggle when the menu is activated
-			const linkAtCursor = true;
-            if (linkAtCursor) {
+            if (this.plugin.settings.linkAtCursor) {
                 const editor = this.plugin.app.workspace.getActiveViewOfType(MarkdownView)?.editor;
     
                 if (editor) {

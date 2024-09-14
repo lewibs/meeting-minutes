@@ -1,37 +1,19 @@
 import { Plugin } from "obsidian";
 
-export interface WhisperSettings {
-	//TODO maybe keep this if they can use any api
-	apiKey: string;
-	//TODO modify to allow the user to use any api?
-	apiUrl: string;
-	//TODO remove model
-	model: string;
-	//TODO remove prompt
-	prompt: string;
-	//TODO remove language
-	language: string;
-
+export interface Settings {
 	saveAudioFile: boolean;
 	saveAudioFilePath: string;
-	
-	//TODO remove debug mode
-	debugMode: boolean;
 	createNewFileAfterRecording: boolean;
 	createNewFileAfterRecordingPath: string;
+	linkAtCursor: boolean;
 }
 
-export const DEFAULT_SETTINGS: WhisperSettings = {
-	apiKey: "",
-	apiUrl: "https://api.openai.com/v1/audio/transcriptions",
-	model: "whisper-1",
-	prompt: "",
-	language: "en",
+export const DEFAULT_SETTINGS: Settings = {
 	saveAudioFile: true,
 	saveAudioFilePath: "",
-	debugMode: false,
 	createNewFileAfterRecording: true,
 	createNewFileAfterRecordingPath: "",
+	linkAtCursor: false,
 };
 
 export class SettingsManager {
@@ -41,7 +23,7 @@ export class SettingsManager {
 		this.plugin = plugin;
 	}
 
-	async loadSettings(): Promise<WhisperSettings> {
+	async loadSettings(): Promise<Settings> {
 		return Object.assign(
 			{},
 			DEFAULT_SETTINGS,
@@ -49,7 +31,7 @@ export class SettingsManager {
 		);
 	}
 
-	async saveSettings(settings: WhisperSettings): Promise<void> {
+	async saveSettings(settings: Settings): Promise<void> {
 		await this.plugin.saveData(settings);
 	}
 }

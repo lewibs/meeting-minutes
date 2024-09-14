@@ -2,6 +2,49 @@ import Whisper from "main";
 import { ButtonComponent, Modal } from "obsidian";
 import { RecordingStatus } from "./StatusBar";
 
+const buttonGroup = `
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	padding: 5px;
+`
+
+const timer = `
+	font-family: 'Courier New', monospace;
+	display: flex;
+	justify-content: center;
+	font-size: 48px;
+	font-weight: bold;
+	padding: 10px;
+	border-radius: 5px;
+	letter-spacing: 2px;
+`
+
+const buttonBase = `
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	margin: 5px;
+`
+
+const start = `
+	${buttonBase}
+	background-color: green;
+`
+
+const pause = `
+	${buttonBase}
+	background-color: orange;
+`
+
+const stop = `
+	${buttonBase}
+	background-color: red;
+`
+
 export class Controls extends Modal {
 	private plugin: Whisper;
 	private startButton: ButtonComponent;
@@ -15,7 +58,7 @@ export class Controls extends Modal {
 		this.containerEl.addClass("recording-controls");
 
 		// Add elapsed time display
-		this.timerDisplay = this.contentEl.createEl("div", { cls: "timer" });
+		this.timerDisplay = this.contentEl.createEl("div", { attr:{style:timer} });
 		this.updateTimerDisplay();
 
 		// Set onUpdate callback for the timer
@@ -24,33 +67,31 @@ export class Controls extends Modal {
 		});
 
 		// Add button group
-		const buttonGroupEl = this.contentEl.createEl("div", {
-			cls: "button-group",
-		});
-
-		// Add record button
+		const buttonGroupEl = this.contentEl.createEl("div", {attr: {style: buttonGroup}});
+		
+		//Add the start button
 		this.startButton = new ButtonComponent(buttonGroupEl);
 		this.startButton
-			.setIcon("microphone")
 			.setButtonText(" Record")
 			.onClick(this.startRecording.bind(this))
-			.buttonEl.addClass("button-component");
-
+			.buttonEl.setAttr("style", start);
+		this.startButton.setIcon("microphone"); // Ensure icon is set after styling
+		
 		// Add pause button
 		this.pauseButton = new ButtonComponent(buttonGroupEl);
 		this.pauseButton
-			.setIcon("pause")
 			.setButtonText(" Pause")
 			.onClick(this.pauseRecording.bind(this))
-			.buttonEl.addClass("button-component");
-
+			.buttonEl.setAttr("style", pause);
+		this.pauseButton.setIcon("pause"); // Ensure icon is set after styling
+		
 		// Add stop button
 		this.stopButton = new ButtonComponent(buttonGroupEl);
 		this.stopButton
-			.setIcon("square")
 			.setButtonText(" Stop")
 			.onClick(this.stopRecording.bind(this))
-			.buttonEl.addClass("button-component");
+			.buttonEl.setAttr("style", stop);
+		this.stopButton.setIcon("square"); // Ensure icon is set after styling
 	}
 
 	async startRecording() {
@@ -91,14 +132,16 @@ export class Controls extends Modal {
 	resetGUI() {
 		const recorderState = this.plugin.recorder.getRecordingState();
 
-		this.startButton.setDisabled(
-			recorderState === "recording" || recorderState === "paused"
-		);
+		this.startButton.setDisabled(recorderState === "recording" || recorderState === "paused");
 		this.pauseButton.setDisabled(recorderState === "inactive");
 		this.stopButton.setDisabled(recorderState === "inactive");
 
-		this.pauseButton.setButtonText(
-			recorderState === "paused" ? " Resume" : " Pause"
-		);
+		if (recorderState === "paused") {
+			this.pauseButton.setButtonText("Resume")
+			this.pauseButton.setIcon("play")
+		} else {
+			this.pauseButton.setButtonText("Pause")
+			this.pauseButton.setIcon("pause")
+		}
 	}
 }
