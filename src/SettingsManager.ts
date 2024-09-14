@@ -3,16 +3,14 @@ import { Plugin } from "obsidian";
 export interface Settings {
 	saveAudioFile: boolean;
 	saveAudioFilePath: string;
-	createNewFileAfterRecording: boolean;
-	createNewFileAfterRecordingPath: string;
+	transcriptPath: string;
 	linkAtCursor: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
 	saveAudioFile: true,
 	saveAudioFilePath: "",
-	createNewFileAfterRecording: true,
-	createNewFileAfterRecordingPath: "",
+	transcriptPath: "",
 	linkAtCursor: false,
 };
 

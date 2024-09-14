@@ -1,12 +1,12 @@
 import axios from "axios";
-import Whisper from "main";
+import Plugin from "main";
 import { Notice, MarkdownView } from "obsidian";
 import { getBaseFileName } from "./utils";
 
 export class AudioHandler {
-	private plugin: Whisper;
+	private plugin: Plugin;
 
-	constructor(plugin: Whisper) {
+	constructor(plugin: Plugin) {
 		this.plugin = plugin;
 	}
 
@@ -22,8 +22,8 @@ export class AudioHandler {
 		}${fileName}`;
 
 		const noteFilePath = `${
-			this.plugin.settings.createNewFileAfterRecordingPath
-				? `${this.plugin.settings.createNewFileAfterRecordingPath}/`
+			this.plugin.settings.transcriptPath
+				? `${this.plugin.settings.transcriptPath}/`
 				: ""
 		}${baseFileName}.md`;
 

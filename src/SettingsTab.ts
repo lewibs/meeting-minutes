@@ -1,5 +1,5 @@
 import Plugin from "main";
-import { App, PluginSettingTab, Setting, TFolder } from "obsidian";
+import { App, PluginSettingTab, Setting } from "obsidian";
 import { SettingsManager } from "./SettingsManager";
 
 export class SettingsTab extends PluginSettingTab {
@@ -21,8 +21,7 @@ export class SettingsTab extends PluginSettingTab {
 		this.createHeader();
 		this.createSaveAudioFileToggleSetting();
 		this.createSaveAudioFilePathSetting();
-		this.createNewFileToggleSetting();
-		this.createNewFilePathSetting();
+		this.transcriptPathSetting();
 		this.linkToToggleSetting();
 	}
 
@@ -34,7 +33,7 @@ export class SettingsTab extends PluginSettingTab {
 		new Setting(this.containerEl)
 			.setName("Save recording")
 			.setDesc(
-				"Turn on to save the audio file after sending it to the Whisper API"
+				"Turn on to save the audio file"
 			)
 			.addToggle((toggle) =>
 				toggle
@@ -72,31 +71,7 @@ export class SettingsTab extends PluginSettingTab {
 			.setDisabled(!this.plugin.settings.saveAudioFile);
 	}
 
-	private createNewFileToggleSetting(): void {
-		new Setting(this.containerEl)
-			.setName("Save transcription")
-			.setDesc(
-				"Turn on to create a new file for each recording, or leave off to add transcriptions at your cursor"
-			)
-			.addToggle((toggle) => {
-				toggle
-					.setValue(this.plugin.settings.createNewFileAfterRecording)
-					.onChange(async (value) => {
-						this.plugin.settings.createNewFileAfterRecording =
-							value;
-						if (!value) {
-							this.plugin.settings.createNewFileAfterRecordingPath =
-								"";
-						}
-						await this.settingsManager.saveSettings(
-							this.plugin.settings
-						);
-						this.createNewFileInput.setDisabled(!value);
-					});
-			});
-	}
-
-	private createNewFilePathSetting(): void {
+	private transcriptPathSetting(): void {
 		this.createNewFileInput = new Setting(this.containerEl)
 			.setName("Transcriptions folder")
 			.setDesc(
@@ -105,10 +80,10 @@ export class SettingsTab extends PluginSettingTab {
 			.addText((text) => {
 				text.setPlaceholder("Example: folder/note")
 					.setValue(
-						this.plugin.settings.createNewFileAfterRecordingPath
+						this.plugin.settings.transcriptPath
 					)
 					.onChange(async (value) => {
-						this.plugin.settings.createNewFileAfterRecordingPath =
+						this.plugin.settings.transcriptPath =
 							value;
 						await this.settingsManager.saveSettings(
 							this.plugin.settings

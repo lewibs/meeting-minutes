@@ -1,4 +1,4 @@
-import Whisper from "main";
+import Plugin from "main";
 import { ButtonComponent, Modal } from "obsidian";
 import { RecordingStatus } from "./StatusBar";
 
@@ -51,13 +51,13 @@ const stop = `
 `
 
 export class Controls extends Modal {
-	private plugin: Whisper;
+	private plugin: Plugin;
 	private startButton: ButtonComponent;
 	private pauseButton: ButtonComponent;
 	private stopButton: ButtonComponent;
 	private timerDisplay: HTMLElement;
 
-	constructor(plugin: Whisper) {
+	constructor(plugin: Plugin) {
 		super(plugin.app);
 		this.plugin = plugin;
 		this.containerEl.addClass("recording-controls");
