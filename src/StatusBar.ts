@@ -35,7 +35,7 @@ export class StatusBar {
 					break;
 				case RecordingStatus.Idle:
 				default:
-					this.statusBarItem.textContent = "Whisper Idle";
+					this.statusBarItem.textContent = "Audio Idle";
 					this.statusBarItem.style.color = "green";
 					break;
 			}

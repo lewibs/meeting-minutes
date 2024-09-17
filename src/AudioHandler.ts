@@ -1,7 +1,7 @@
-import axios from "axios";
 import Plugin from "main";
 import { Notice, MarkdownView } from "obsidian";
 import { getBaseFileName } from "./utils";
+import { Client } from "@gradio/client";
 
 export class AudioHandler {
 	private plugin: Plugin;
@@ -46,27 +46,26 @@ export class AudioHandler {
 		}
 
 		try {
-            //TODO connect to some api to convert audio to text
-            const audio_response = {
-                data:{
-                    text:"this is the transcription"
-                }
-            }
-            
-            //TODO connect to some api to convert raw text to a summary
-            const summary_response = {
-                data:{
-                    text:"this is a summary"
-                }
-            }
+			// const formData = new FormData();
+			// formData.append("file", blob, fileName);
+			console.log(audioFilePath)
+
+            const client = await Client.connect("lewibs/summarize_audio");
+			const result = await client.predict("/predict", { 
+							audio_file: blob, 
+			});
+
+			const [summary, transcript] = result.data as string[]
 			
+			console.log(result)
+
 			let audio_text = "";
 
 			if (this.plugin.settings.saveAudioFile) {
 				audio_text += `![[${audioFilePath}]]\n` 
 			}
 
-			audio_text += `# Meeting Minutes:\n${summary_response.data.text}\n# Transcription\n${audio_response.data.text}` 
+			audio_text += `# Meeting Minutes:\n${summary}\n# Transcription\n${transcript}` 
 
 			await this.plugin.app.vault.create(
 				noteFilePath,
