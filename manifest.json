@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "meeting-minutes",
+	"name": "Meeting Minutes",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "A Whisper-based plugin that specializes in handling meeting transcriptions and generating meeting minutes through AI.",
+	"author": "lewibs",
+	"authorUrl": "https://lewibs.com",
 	"isDesktopOnly": false
 }
