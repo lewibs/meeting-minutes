@@ -1,15 +1,15 @@
 {
-	"name": "obsidian-whisper-meeting-minutes",
+	"name": "meeting-minutes",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "A Whisper-based plugin that specializes in handling meeting transcriptions and generating meeting minutes through AI.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": ["AI", "Whisper", "LLM", "Meetings", "Summary"],
+	"author": "lewibs",
 	"license": "MIT",
 	"devDependencies": {
 		"@gradio/client": "^1.5.2",
@@ -21,8 +21,5 @@
 		"obsidian": "latest",
 		"tslib": "2.4.0",
 		"typescript": "4.7.4"
-	},
-	"dependencies": {
-		"axios": "^1.7.7"
 	}
 }
