@@ -43,5 +43,5 @@ If you want to install this plugin manually, use the following steps:
 Follow me on [Github](https://github.com/lewibs) and check out my [Website](https://lewibs.com)
 
 ## Credits
-This work is heavily influenced by the [Whisper](https://github.com/nikdanilov/whisper-obsidian-plugin) by [@nikdanilov\_](https://twitter.com/nikdanilov_). However, I wanted a free version that was specially designed for handling meeting audio.
+This work is heavily influenced by the [Whisper plugin](https://github.com/nikdanilov/whisper-obsidian-plugin) by [@nikdanilov\_](https://twitter.com/nikdanilov_). However, I wanted a free version that was specially designed for handling meeting audio.
 ---
