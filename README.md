@@ -30,11 +30,6 @@ Press "Start" to begin recording. You can pause or resume the recording using th
 
 Id love to have your help, hear your inputs or listen to your complaints. Make a note at the [Issues](https://github.com/lewibs/meeting-minutes/issues) to do so.
 
-## 💬 Whisper API
-
--   For additional information, including limitations and pricing related to using the Whisper API, check out the [OpenAI Whisper FAQ](https://help.openai.com/en/articles/7031512-whisper-api-faq)
--   For a high-level overview of the Whisper API, check out this information from [OpenAI](https://openai.com/research/whisper)
-
 ## ⚒️ Manual Installation
 
 If you want to install this plugin manually, use the following steps:
@@ -45,9 +40,7 @@ If you want to install this plugin manually, use the following steps:
 
 ## 🤩 Say Thank You
 
-Follow me on [Github](https://github.com/lewibs)!
-
-and check out my [Website](https://lewibs.com)
+Follow me on [Github](https://github.com/lewibs) and check out my [Website](https://lewibs.com)
 
 ## Credits
 This work is heavily influenced by the [Whisper](https://github.com/nikdanilov/whisper-obsidian-plugin) by [@nikdanilov\_](https://twitter.com/nikdanilov_). However, I wanted a free version that was specially designed for handling meeting audio.
