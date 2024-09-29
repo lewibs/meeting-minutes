@@ -68,12 +68,6 @@ export default class MeetingSummarizer extends Plugin {
 					this.statusBar.updateStatus(RecordingStatus.Idle);
 				}
 			},
-			hotkeys: [
-				{
-					modifiers: ["Alt"],
-					key: "Q",
-				},
-			],
 		});
 
 		this.addCommand({
