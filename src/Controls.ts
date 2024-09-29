@@ -2,54 +2,6 @@ import Plugin from "main";
 import { ButtonComponent, Modal } from "obsidian";
 import { RecordingStatus } from "./StatusBar";
 
-const buttonGroup = `
-	display: flex;
-	justify-content: center;
-	gap: 10px;
-	padding: 5px;
-`
-
-const timer = `
-	font-family: 'Courier New', monospace;
-	display: flex;
-	justify-content: center;
-	font-size: 48px;
-	font-weight: bold;
-	padding: 10px;
-	border-radius: 5px;
-	letter-spacing: 2px;
-`
-
-const buttonBase = `
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	margin: 5px;
-`
-
-const disabled = `
-	${buttonBase}
-	background-color: gray;
-`
-
-const start = `
-	${buttonBase}
-	background-color: green;
-`
-
-const pause = `
-	${buttonBase}
-	background-color: orange;
-`
-
-const stop = `
-	${buttonBase}
-	background-color: red;
-`
-
 export class Controls extends Modal {
 	private plugin: Plugin;
 	private startButton: ButtonComponent;
@@ -63,7 +15,7 @@ export class Controls extends Modal {
 		this.containerEl.addClass("recording-controls");
 
 		// Add elapsed time display
-		this.timerDisplay = this.contentEl.createEl("div", { attr:{style:timer} });
+		this.timerDisplay = this.contentEl.createEl("div", { attr:{cls:"timer"} });
 		this.updateTimerDisplay();
 
 		// Set onUpdate callback for the timer
@@ -72,14 +24,14 @@ export class Controls extends Modal {
 		});
 
 		// Add button group
-		const buttonGroupEl = this.contentEl.createEl("div", {attr: {style: buttonGroup}});
+		const buttonGroupEl = this.contentEl.createEl("div", {attr: {cls: "button-group"}});
 		
 		//Add the start button
 		this.startButton = new ButtonComponent(buttonGroupEl);
 		this.startButton
 			.setButtonText(" Record")
 			.onClick(this.startRecording.bind(this))
-			.buttonEl.setAttr("style", start);
+			.buttonEl.addClass("start");
 		this.startButton.setIcon("microphone"); // Ensure icon is set after styling
 		
 		// Add pause button
@@ -87,7 +39,7 @@ export class Controls extends Modal {
 		this.pauseButton
 			.setButtonText(" Pause")
 			.onClick(this.pauseRecording.bind(this))
-			.buttonEl.setAttr("style", pause);
+			.buttonEl.addClass("pause");
 		this.pauseButton.setIcon("pause"); // Ensure icon is set after styling
 		
 		// Add stop button
@@ -95,13 +47,13 @@ export class Controls extends Modal {
 		this.stopButton
 			.setButtonText(" Stop")
 			.onClick(this.stopRecording.bind(this))
-			.buttonEl.setAttr("style", stop);
+			.buttonEl.addClass("stop");
 		this.stopButton.setIcon("square"); // Ensure icon is set after styling
 
 		this.pauseButton.setDisabled(true);
-		this.pauseButton.buttonEl.setAttr("style", disabled)
+		this.pauseButton.buttonEl.addClass("disabled")
 		this.stopButton.setDisabled(true)
-		this.stopButton.buttonEl.setAttr("style", disabled)
+		this.stopButton.buttonEl.addClass("disabled")
 	}
 
 	async startRecording() {
@@ -144,22 +96,22 @@ export class Controls extends Modal {
 
 		if (recorderState === "recording" || recorderState === "paused") {
 			this.startButton.setDisabled(true);
-			this.startButton.buttonEl.setAttr("style", disabled)
+			this.startButton.buttonEl.addClass("disabled")
 		} else {
 			this.startButton.setDisabled(false);
-			this.startButton.buttonEl.setAttr("style", start)
+			this.startButton.buttonEl.addClass("start")
 		}
 
 		if (recorderState === "inactive") {
 			this.pauseButton.setDisabled(true);
-			this.pauseButton.buttonEl.setAttr("style", disabled)
+			this.pauseButton.buttonEl.addClass("disabled")
 			this.stopButton.setDisabled(true)
-			this.stopButton.buttonEl.setAttr("style", disabled)
+			this.stopButton.buttonEl.addClass("disabled")
 		} else {
 			this.pauseButton.setDisabled(false);
-			this.pauseButton.buttonEl.setAttr("style", pause)
+			this.pauseButton.buttonEl.addClass("pause")
 			this.stopButton.setDisabled(false)
-			this.stopButton.buttonEl.setAttr("style", stop)
+			this.stopButton.buttonEl.addClass("stop")
 		}
 
 		if (recorderState === "paused") {
@@ -172,9 +124,9 @@ export class Controls extends Modal {
 
 		if (!recorderState) {
 			this.pauseButton.setDisabled(true);
-			this.pauseButton.buttonEl.setAttr("style", disabled)
+			this.pauseButton.buttonEl.addClass("disabled")
 			this.stopButton.setDisabled(true)
-			this.stopButton.buttonEl.setAttr("style", disabled)
+			this.stopButton.buttonEl.addClass("disabled")
 		}
 	}
 }

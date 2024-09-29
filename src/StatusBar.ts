@@ -27,16 +27,16 @@ export class StatusBar {
 			switch (this.status) {
 				case RecordingStatus.Recording:
 					this.statusBarItem.textContent = "Recording...";
-					this.statusBarItem.style.color = "red";
+					this.statusBarItem.className = "stop";
 					break;
 				case RecordingStatus.Processing:
 					this.statusBarItem.textContent = "Processing audio...";
-					this.statusBarItem.style.color = "orange";
+					this.statusBarItem.className = "pause";
 					break;
 				case RecordingStatus.Idle:
 				default:
 					this.statusBarItem.textContent = "Audio Idle";
-					this.statusBarItem.style.color = "green";
+					this.statusBarItem.className = "play";
 					break;
 			}
 		}

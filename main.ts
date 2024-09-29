@@ -7,7 +7,7 @@ import { SettingsManager, Settings } from "src/SettingsManager";
 import { NativeAudioRecorder } from "src/AudioRecorder";
 import { RecordingStatus, StatusBar } from "src/StatusBar";
 
-export default class MyPlugin extends Plugin {
+export default class MeetingSummarizer extends Plugin {
 	settings: Settings;
 	settingsManager: SettingsManager;
 	timer: Timer;
